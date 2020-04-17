@@ -12,12 +12,33 @@
 
 const topicsDiv = document.querySelector('.topics');
 
+function topicTabMaker(topic) {
+    const topicTabDiv = document.createElement('div');
+    topicTabDiv.classList.add('tab');
+    topicTabDiv.textContent = topic;
+
+    return topicTabDiv
+}
+
+axios.get('https://lambda-times-backend.herokuapp.com/topics')
+.then( (response) => {
+
+    console.log('response', response.data.topics)
+
+    response.data.topics.forEach( (topicDatum) => {
+        topicsDiv.appendChild(topicTabMaker(topicDatum))
+    })
+.catch(err => {
+    console.log('Something went wrong.', err)
+})    
+});
+/*
 axios.get('https://lambda-times-backend.herokuapp.com/topics')
 .then( (response) => {
 
     console.log('response', response.data)
 
-    const responseData = response.data;
+    const responseData = Array.from(response.data);
 
     const topicTabs = responseData.forEach( (topicDatum) => {
         const topicTabDiv = document.createElement('div')
@@ -32,3 +53,4 @@ axios.get('https://lambda-times-backend.herokuapp.com/topics')
 .catch( (err) => {
     console.log('Something went wrong.', err)
 });
+*/ 
