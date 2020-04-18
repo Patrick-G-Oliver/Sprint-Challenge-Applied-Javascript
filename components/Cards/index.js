@@ -19,7 +19,7 @@
 //
 // Use your function to create a card for each of the articles and add the card to the DOM.
 
-function cardMaker(dataObj) {
+function cardMaker(dataObjArr) {
     // Elements
     const cardDiv = document.createElement('div');
     const headlineDiv = document.createElement('div');
@@ -33,9 +33,9 @@ function cardMaker(dataObj) {
     authorDiv.classList.add('author');
     imgContainerDiv.classList.add('img-container');
     // Content
-    headlineDiv.textContent = dataObj.headline;
-    //imgElement.src = 
-    //bySpan.textContent = `By `
+    headlineDiv.textContent = dataObjArr.headline;
+    imgElement.src = `${dataObjArr.authorPhoto}`;
+    bySpan.textContent = `By ${dataObjArr.authorName}`;
     // Structure
     cardDiv.appendChild(headlineDiv);
     authorDiv.appendChild(imgContainerDiv);
@@ -47,4 +47,20 @@ function cardMaker(dataObj) {
 
 const cardsContainerDiv = document.querySelector('.cards-container');
 
-console.log(axios.get('https://lambda-times-backend.herokuapp.com/articles'))
+axios.get('https://lambda-times-backend.herokuapp.com/articles')
+.then( (response) => {
+
+    console.log('response', response.data.articles)
+
+    const dataArray = Array.from(response.data.articles)
+
+    dataArray.forEach( (cardContentArray) => {
+        cardsContainerDiv.appendChild(cardMaker(cardContentArray))
+    })
+    
+        //cardsContainerDiv.appendChild(cardMaker(cardObj))
+    
+})
+.catch( (err) => {
+    console.log('Something else went wrong.', err)
+})

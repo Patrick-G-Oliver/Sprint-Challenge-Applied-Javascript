@@ -28,8 +28,7 @@ axios.get('https://lambda-times-backend.herokuapp.com/topics')
     response.data.topics.forEach( (topicDatum) => {
         topicsDiv.appendChild(topicTabMaker(topicDatum))
     })
+})
 .catch( (err) => {
     console.log('Something went wrong.', err)
 })    
-});
-
