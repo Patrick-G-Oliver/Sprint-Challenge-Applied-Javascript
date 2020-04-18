@@ -23,7 +23,7 @@ function topicTabMaker(topic) {
 axios.get('https://lambda-times-backend.herokuapp.com/topics')
 .then( (response) => {
 
-    console.log('response', response.data.topics)
+    console.log('tabs response', response.data.topics)
 
     response.data.topics.forEach( (topicDatum) => {
         topicsDiv.appendChild(topicTabMaker(topicDatum))

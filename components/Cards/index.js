@@ -50,16 +50,18 @@ const cardsContainerDiv = document.querySelector('.cards-container');
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
 .then( (response) => {
 
-    console.log('response', response.data.articles)
+    console.log('cards response', response.data.articles)
 
-    const dataArray = Array.from(response.data.articles)
+    console.log(Object.values(response.data.articles));
 
-    dataArray.forEach( (cardContentArray) => {
-        cardsContainerDiv.appendChild(cardMaker(cardContentArray))
+    const dataObjArrays = Object.values(response.data.articles)
+
+    dataObjArrays.forEach( (dataArr) => {
+        dataArr.forEach( (cardArr) => {
+            cardsContainerDiv.appendChild(cardMaker(cardArr))
+        })
     })
-    
-        //cardsContainerDiv.appendChild(cardMaker(cardObj))
-    
+
 })
 .catch( (err) => {
     console.log('Something else went wrong.', err)
