@@ -50,14 +50,20 @@ const cardsContainerDiv = document.querySelector('.cards-container');
 
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
 .then( (response) => {
-
+    
     console.log('cards response', response.data.articles)
-
+    // problem: The arrays are within an object.
+    // And that object contains key / value pairs whose values are arrays of objects.
+    // Those objects are the target items to be passed to the cardMaker function.
     console.log(Object.values(response.data.articles));
-
+    // solution (part 1): Use Object.values to circumvent the object and get to the arrays 
+    // containing the target objects. Store the resultant array in dataObjArrays.
     const dataObjArrays = Object.values(response.data.articles)
-
+    // solution (part 2): Iterate through the array of target objects...
     dataObjArrays.forEach( (dataArr) => {
+        // solution (part 2) (continued): ...and iterate over those objects
+        // simultaneously passing them to the cardMaker function and appending the returned  
+        // cardDiv(s) to the cardsContainerDiv to add them to the DOM (i.e. get them on screen). 
         dataArr.forEach( (cardArr) => {
             cardsContainerDiv.appendChild(cardMaker(cardArr))
         })
@@ -67,3 +73,4 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
 .catch( (err) => {
     console.log('Something else went wrong.', err)
 })
+
