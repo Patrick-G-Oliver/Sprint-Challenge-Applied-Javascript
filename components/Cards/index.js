@@ -38,6 +38,7 @@ function cardMaker(dataObjArr) {
     bySpan.textContent = `By ${dataObjArr.authorName}`;
     // Structure
     cardDiv.appendChild(headlineDiv);
+    cardDiv.appendChild(authorDiv);
     authorDiv.appendChild(imgContainerDiv);
     imgContainerDiv.appendChild(imgElement);
     authorDiv.appendChild(bySpan);
